@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { List } from "antd";
 import Task from "./Task";
 
@@ -30,13 +30,16 @@ import Task from "./Task";
 //   },
 // ];
 
-function TaskList() {
-  const [tasks, setTasks] = useState();
+function TaskList({ tasks, setTasks, loading, setLoading }) {
   useEffect(() => {
     //Get data from API
+    setLoading(true);
     fetch("https://todo-app-dm-164b6.uc.r.appspot.com/tasks")
       .then((response) => response.json())
-      .then((data) => setTasks(data))
+      .then((data) => {
+        setTasks(data);
+        setLoading(false);
+      })
       .catch(alert);
   }, []);
   //task has all data
@@ -44,8 +47,17 @@ function TaskList() {
   return (
     <List
       bordered
+      size="large"
+      loading={loading}
       dataSource={tasks}
-      renderItem={(item) => <Task item={item} />}
+      renderItem={(item) => (
+        <Task
+          item={item}
+          setTasks={setTasks}
+          loading={loading}
+          setLoading={setLoading}
+        />
+      )}
     />
   );
 }

@@ -1,39 +1,55 @@
 import { useState } from "react";
 import { Input } from "antd";
 
-function AddTask() {
+function AddTask({ setTasks, setLoading }) {
   const [newTask, setNewTask] = useState("");
 
-  const taskObject = {
-    task: newTask,
-  };
-
   const handleButtonSubmit = () => {
-    console.log("sending to API");
+    if (newTask.trim() === "") {
+      //if the new task is empty don't do anything
+      return;
+    }
+    const taskObject = {
+      task: newTask,
+    };
+    setLoading(true);
+
     fetch("https://todo-app-dm-164b6.uc.r.appspot.com/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(taskObject),
+      body: JSON.stringify(taskObject), //stringify>> '{"task":"new task"}
     })
-      .then((response) => response.json())
-      .then((data) => console.log("data was added"))
-      .catch((err) => console.error(err));
+      // what we want to do in the .then ()--we got a new task,lets update the list
+      .then(() => {
+        setNewTask("");
+        fetch("https://todo-app-dm-164b6.uc.r.appspot.com/tasks")
+          .then((response) => response.json())
+          .then((data) => {
+            setTasks(data);
+            setLoading(false);
+          });
+      })
+      .catch((err) => {
+        alert(err);
+        setLoading(false);
+      });
   };
   const handleInputText = (event) => {
     setNewTask(event.target.value);
   };
 
-  console.log("newTask start", newTask);
   return (
     <>
-      <Input
+      <Input.Search
+        value={newTask}
         placeholder="Enter New Task"
+        enterButton="Add Task"
+        size="large"
+        onSearch={handleButtonSubmit}
         onChange={(event) => handleInputText(event)}
       />
-
-      <button onClick={handleButtonSubmit}>Add</button>
     </>
   );
 }

@@ -4,7 +4,7 @@ import "./App.css";
 
 function App() {
   return (
-    <Layout>
+    <Layout style={{}}>
       <Layout.Header
         style={{
           position: "fixed",
@@ -12,23 +12,26 @@ function App() {
           width: "100%",
           color: "white",
           textAlign: "center",
-          backgroundColor: "teal",
+          backgroundColor: "rgb(61, 143, 71)",
           fontSize: 30,
         }}
       >
         <h1
           style={{
-            color: "white",
+            color: "rgb(189, 234, 235)",
             fontWeight: "bold",
           }}
         >
           Much ToDo
         </h1>
       </Layout.Header>
-      <Layout.Content style={{ padding: "0 50px", marginTop: 64 }}>
+      <Layout.Content
+        className="background-img"
+        style={{ padding: "0 400px", marginTop: 64 }}
+      >
         <Main />
       </Layout.Content>
-      <Layout.Footer style={{ textAlign: "center" }}>
+      <Layout.Footer style={{ color: "darksalmon", textAlign: "center" }}>
         &copy; 2022, Diana Marcelin
       </Layout.Footer>
     </Layout>

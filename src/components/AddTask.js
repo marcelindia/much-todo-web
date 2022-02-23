@@ -46,6 +46,7 @@ function AddTask({ setTasks, setLoading }) {
         value={newTask}
         placeholder="Enter New Task"
         enterButton="Add Task"
+        shape="round"
         size="large"
         onSearch={handleButtonSubmit}
         onChange={(event) => handleInputText(event)}

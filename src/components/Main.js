@@ -9,9 +9,8 @@ function Main() {
     <section
       style={{
         background: "white",
-        padding: "0 40px 40px",
-        // marginTop: 20,
-        marginBottom: 20,
+        padding: "0 60px 60px",
+        marginBottom: 60,
         marginLeft: 10,
         marginRight: 10,
       }}

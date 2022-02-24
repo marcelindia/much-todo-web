@@ -4,7 +4,7 @@ import "./App.css";
 
 function App() {
   return (
-    <Layout style={{}}>
+    <Layout>
       <Layout.Header
         style={{
           position: "fixed",
